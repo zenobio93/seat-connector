@@ -21,11 +21,11 @@
 
 Route::group([
     'namespace' => 'Warlof\Seat\Connector\Http\Controllers',
-], function () {
+], function (): void {
     Route::group([
         'prefix'     => 'seat-connector',
         'middleware' => ['web', 'auth', 'locale'],
-    ], function () {
+    ], function (): void {
         Route::get('/identities')
             ->name('seat-connector.identities')
             ->uses('IdentitiesController@index')
@@ -33,7 +33,7 @@ Route::group([
 
         Route::group([
             'middleware' => 'can:global.superuser',
-        ], function () {
+        ], function (): void {
             Route::get('/settings')
                 ->name('seat-connector.settings')
                 ->uses('SettingsController@index');
@@ -49,7 +49,7 @@ Route::group([
 
         Route::group([
             'middleware' => 'can:seat-connector.security',
-        ], function () {
+        ], function (): void {
             Route::get('/users')
                 ->name('seat-connector.users')
                 ->uses('UsersController@index');
@@ -72,7 +72,7 @@ Route::group([
 
             Route::group([
                 'prefix' => 'api',
-            ], function () {
+            ], function (): void {
                 Route::get('/roles')
                     ->name('seat-connector.api.roles')
                     ->uses('LookupController@getRoles');
@@ -93,7 +93,7 @@ Route::group([
 
         Route::group([
             'middleware' => 'can:seat-connector.logs_review',
-        ], function () {
+        ], function (): void {
             Route::get('/logs')
                 ->name('seat-connector.logs')
                 ->uses('LogsController@index');
@@ -108,14 +108,14 @@ Route::group([
         'namespace'  => 'Api',
         'middleware' => ['api.request', 'api.auth'],
         'prefix'     => 'api',
-    ], function () {
+    ], function (): void {
         Route::group([
             'namespace' => 'V2',
             'prefix'    => 'v2',
-        ], function () {
+        ], function (): void {
             Route::group([
                 'prefix' => 'seat-connector',
-            ], function () {
+            ], function (): void {
                 Route::get('/users', 'UserController@index');
             });
         });

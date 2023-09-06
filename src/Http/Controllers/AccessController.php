@@ -40,7 +40,6 @@ use Warlof\Seat\Connector\Models\Set;
 class AccessController extends Controller
 {
     /**
-     * @param  \Warlof\Seat\Connector\Http\DataTables\AccessDataTable  $datatable
      * @return mixed
      */
     public function index(AccessDataTable $datatable)
@@ -84,25 +83,18 @@ class AccessController extends Controller
     }
 
     /**
-     * @param  \Warlof\Seat\Connector\Http\Validations\AccessRuleValidation  $request
      * @return \Illuminate\Http\RedirectResponse
-     *
      * @throws \Exception
      */
     public function create(AccessRuleValidation $request)
     {
         $entity_type = $request->input('entity_type');
 
-        switch ($entity_type) {
-            case 'alliances':
-                $entity_pk = 'alliance_id';
-                break;
-            case 'corporations':
-                $entity_pk = 'corporation_id';
-                break;
-            default:
-                $entity_pk = 'id';
-        }
+        $entity_pk = match ($entity_type) {
+            'alliances' => 'alliance_id',
+            'corporations' => 'corporation_id',
+            default => 'id',
+        };
 
         $set = Set::find($request->input('set_id'));
 
@@ -124,25 +116,18 @@ class AccessController extends Controller
     }
 
     /**
-     * @param  \Warlof\Seat\Connector\Http\Validations\AccessRuleValidation  $request
      * @return \Illuminate\Http\RedirectResponse
-     *
      * @throws \Exception
      */
     public function remove(AccessRuleValidation $request)
     {
         $entity_type = $this->classAlias($request->input('entity_type'));
 
-        switch ($entity_type) {
-            case 'alliances':
-                $entity_pk = 'alliance_id';
-                break;
-            case 'corporations':
-                $entity_pk = 'corporation_id';
-                break;
-            default:
-                $entity_pk = 'id';
-        }
+        $entity_pk = match ($entity_type) {
+            'alliances' => 'alliance_id',
+            'corporations' => 'corporation_id',
+            default => 'id',
+        };
 
         $set = Set::find($request->input('set_id'));
 
@@ -168,7 +153,6 @@ class AccessController extends Controller
     /**
      * Map Connector class to user friendly alias.
      *
-     * @param  string  $class_name
      * @return string
      */
     private function classAlias(string $class_name): string

@@ -45,10 +45,7 @@ abstract class AbstractIdentityObserver
      */
     private $terminator = false;
 
-    /**
-     * @param  \Seat\Web\Models\User  $user
-     */
-    public function notifyDrivers(SeatUser $user)
+    public function notifyDrivers(SeatUser $user): void
     {
         // extract registered drivers from the configuration stack
         $drivers = collect(array_keys(config('seat-connector.drivers')));
@@ -106,13 +103,10 @@ abstract class AbstractIdentityObserver
     }
 
     /**
-     * @param  \Warlof\Seat\Connector\Models\User  $profile
-     * @param  \Warlof\Seat\Connector\Drivers\IUser  $identity
-     *
      * @throws \Seat\Services\Exceptions\SettingException
      * @throws \Warlof\Seat\Connector\Exceptions\DriverException
      */
-    public function applyPolicy(User $profile, IUser $identity)
+    public function applyPolicy(User $profile, IUser $identity): void
     {
         $this->handleSetsUpdate($profile, $identity);
 

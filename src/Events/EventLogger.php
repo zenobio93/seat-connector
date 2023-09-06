@@ -48,11 +48,6 @@ class EventLogger
 
     /**
      * EventLogger constructor.
-     *
-     * @param  string  $driver
-     * @param  string  $level
-     * @param  string  $category
-     * @param  string  $message
      */
     public function __construct(string $driver, string $level, string $category, string $message)
     {

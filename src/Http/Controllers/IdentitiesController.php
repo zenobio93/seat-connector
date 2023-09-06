@@ -37,6 +37,6 @@ class IdentitiesController extends Controller
         $drivers = collect(config('seat-connector.drivers', []));
         $identities = User::where('user_id', auth()->user()->id)->get();
 
-        return view('seat-connector::identities.list', compact('drivers', 'identities'));
+        return view('seat-connector::identities.list', ['drivers' => $drivers, 'identities' => $identities]);
     }
 }

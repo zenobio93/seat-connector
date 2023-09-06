@@ -29,18 +29,12 @@ use Yajra\DataTables\Contracts\DataTableScope;
 class UserDataTableScope implements DataTableScope
 {
     /**
-     * @var string|null
-     */
-    private $connector_driver;
-
-    /**
      * UserDataTableScope constructor.
      *
      * @param  string  $connector_driver
      */
-    public function __construct(?string $connector_driver)
+    public function __construct(private readonly ?string $connector_driver)
     {
-        $this->connector_driver = $connector_driver;
     }
 
     /**

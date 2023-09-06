@@ -38,11 +38,6 @@ class NotifyDriver extends AbstractIdentityObserver implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * @var \Seat\Web\Models\User
-     */
-    private $user;
-
-    /**
      * @var array
      */
     protected $tags = [
@@ -51,12 +46,9 @@ class NotifyDriver extends AbstractIdentityObserver implements ShouldQueue
 
     /**
      * NotifyDriver constructor.
-     *
-     * @param  \Seat\Web\Models\User  $user
      */
-    public function __construct(SeatUser $user)
+    public function __construct(private readonly SeatUser $user)
     {
-        $this->user = $user;
         $this->tags = array_merge($this->tags, [sprintf('user_id:%s', Str::slug($user->name, '_'))]);
     }
 
@@ -71,7 +63,7 @@ class NotifyDriver extends AbstractIdentityObserver implements ShouldQueue
     /**
      * Job.
      */
-    public function handle()
+    public function handle(): void
     {
         $this->notifyDrivers($this->user);
     }

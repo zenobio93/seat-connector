@@ -33,9 +33,9 @@ class CreateSeatConnectorSetEntityTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('seat_connector_set_entity', function (Blueprint $table) {
+        Schema::create('seat_connector_set_entity', function (Blueprint $table): void {
             $table->unsignedInteger('set_id');
             $table->string('entity_type');
             $table->bigInteger('entity_id');
@@ -58,7 +58,7 @@ class CreateSeatConnectorSetEntityTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('seat_connector_set_entity');
     }

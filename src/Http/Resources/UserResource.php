@@ -63,6 +63,10 @@ use Illuminate\Http\Resources\Json\Resource;
  */
 class UserResource extends Resource
 {
+    public $user_id;
+    public $connector_type;
+    public $connector_id;
+    public $connector_name;
     /**
      * @param  \Illuminate\Http\Request  $request
      * @return array

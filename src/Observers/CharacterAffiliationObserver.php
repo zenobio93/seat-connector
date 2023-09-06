@@ -30,14 +30,11 @@ use Warlof\Seat\Connector\Jobs\NotifyDriver;
  */
 class CharacterAffiliationObserver
 {
-    /**
-     * @param  \Seat\Eveapi\Models\Character\CharacterAffiliation  $affiliation
-     */
-    public function updated(CharacterAffiliation $affiliation)
+    public function updated(CharacterAffiliation $affiliation): void
     {
         // attempt to retrieve attached user
         $user = SeatUser::standard()
-            ->whereHas('refresh_tokens', function ($query) use ($affiliation) {
+            ->whereHas('refresh_tokens', function ($query) use ($affiliation): void {
                 $query->where('character_id', $affiliation->character_id);
             })->first();
 

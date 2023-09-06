@@ -43,11 +43,6 @@ class DriverUpdateSets implements ShouldQueue
     private $client;
 
     /**
-     * @var string
-     */
-    protected $driver;
-
-    /**
      * @var array
      */
     protected $tags = [
@@ -56,12 +51,9 @@ class DriverUpdateSets implements ShouldQueue
 
     /**
      * DriverUpdateSets constructor.
-     *
-     * @param  string  $driver
      */
-    public function __construct(string $driver)
+    public function __construct(protected string $driver)
     {
-        $this->driver = $driver;
         $this->tags = array_merge($this->tags, [$driver]);
     }
 

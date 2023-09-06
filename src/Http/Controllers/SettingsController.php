@@ -35,7 +35,7 @@ class SettingsController extends Controller
     /**
      * return array.
      */
-    const ALLOWED_COMMANDS = [
+    final public const ALLOWED_COMMANDS = [
         'seat-connector:sync:sets',
         'seat-connector:apply:policies',
         'seat-connector:apply:policies --terminator',
@@ -56,13 +56,11 @@ class SettingsController extends Controller
             $drivers->put($driver, new Driver($metadata));
         }
 
-        return view('seat-connector::settings.list', compact('drivers'));
+        return view('seat-connector::settings.list', ['drivers' => $drivers]);
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
-     *
      * @throws \Seat\Services\Exceptions\SettingException
      */
     public function update(Request $request)
@@ -81,12 +79,9 @@ class SettingsController extends Controller
             ->with('success', 'SeAT Connector has been updated.');
     }
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     */
-    public function dispatch(Request $request)
+    public function dispatch(Request $request): void
     {
-        $drivers = array_merge(array_keys(config('seat-connector.drivers', [])), ['']);
+        $drivers = [...array_keys(config('seat-connector.drivers', [])), ''];
 
         $request->validate([
             'command' => sprintf('required|in:%s', implode(',', self::ALLOWED_COMMANDS)),
@@ -94,7 +89,7 @@ class SettingsController extends Controller
         ]);
 
         $arguments = [];
-        $command_string = explode(' ', $request->input('command'));
+        $command_string = explode(' ', (string) $request->input('command'));
         $command = Arr::first($command_string);
 
         // add requested driver filter to command arguments, if any

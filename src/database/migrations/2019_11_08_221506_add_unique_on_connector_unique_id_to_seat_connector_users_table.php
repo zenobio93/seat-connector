@@ -33,9 +33,9 @@ class AddUniqueOnConnectorUniqueIDToSeatConnectorUsersTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('seat_connector_users', function (Blueprint $table) {
+        Schema::table('seat_connector_users', function (Blueprint $table): void {
             $table->unique(['connector_type', 'unique_id']);
         });
     }
@@ -45,9 +45,9 @@ class AddUniqueOnConnectorUniqueIDToSeatConnectorUsersTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table('seat_connector_users', function (Blueprint $table) {
+        Schema::table('seat_connector_users', function (Blueprint $table): void {
             $table->dropUnique(['connector_type', 'unique_id']);
         });
     }

@@ -34,16 +34,12 @@ class LogsDataTable extends DataTable
      *
      * @throws \Exception
      */
-    public function ajax()
+    public function ajax(): \Illuminate\Http\JsonResponse
     {
         return datatables()
             ->eloquent($this->applyScopes($this->query()))
-            ->editColumn('created_at', function ($row) {
-                return view('web::partials.date', ['datetime' => $row->created_at]);
-            })
-            ->editColumn('level', function ($row) {
-                return view('seat-connector::logs.includes.level', compact('row'));
-            })
+            ->editColumn('created_at', fn($row) => view('web::partials.date', ['datetime' => $row->created_at]))
+            ->editColumn('level', fn($row) => view('seat-connector::logs.includes.level', ['row' => $row]))
             ->make(true);
     }
 
@@ -73,7 +69,7 @@ class LogsDataTable extends DataTable
     /**
      * @return array
      */
-    public function getColumns()
+    public function getColumns(): array
     {
         return [
             [

@@ -41,10 +41,7 @@ class UserRoleAddedListener extends AbstractIdentityObserver implements ShouldQu
      */
     public $queue = 'high';
 
-    /**
-     * @param  \Seat\Web\Events\UserRoleAdded  $event
-     */
-    public function handle(UserRoleAdded $event)
+    public function handle(UserRoleAdded $event): void
     {
         $user = User::find($event->user_id);
 
@@ -56,10 +53,9 @@ class UserRoleAddedListener extends AbstractIdentityObserver implements ShouldQu
     }
 
     /**
-     * @param  \Seat\Web\Events\UserRoleAdded  $event
      * @return bool
      */
-    public function shouldQueue(UserRoleAdded $event)
+    public function shouldQueue(UserRoleAdded $event): bool
     {
         return User::find($event->user_id) != null;
     }

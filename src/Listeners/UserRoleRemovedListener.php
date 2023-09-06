@@ -41,10 +41,7 @@ class UserRoleRemovedListener extends AbstractIdentityObserver implements Should
      */
     public $queue = 'high';
 
-    /**
-     * @param  \Seat\Web\Events\UserRoleRemoved  $event
-     */
-    public function handle(UserRoleRemoved $event)
+    public function handle(UserRoleRemoved $event): void
     {
         $user = User::find($event->user_id);
 
@@ -56,10 +53,9 @@ class UserRoleRemovedListener extends AbstractIdentityObserver implements Should
     }
 
     /**
-     * @param  \Seat\Web\Events\UserRoleRemoved  $event
      * @return bool
      */
-    public function shouldQueue(UserRoleRemoved $event)
+    public function shouldQueue(UserRoleRemoved $event): bool
     {
         return User::find($event->user_id) != null;
     }

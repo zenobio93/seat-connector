@@ -52,7 +52,6 @@ class UsersController extends Controller
     }
 
     /**
-     * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(int $id)
@@ -90,7 +89,7 @@ class UsersController extends Controller
 
             // remove user identity
             $identity->delete();
-        } catch (InvalidDriverIdentityException|DriverSettingsException $e) {
+        } catch (InvalidDriverIdentityException|DriverSettingsException) {
             $identity->delete();
         } catch (DriverException $e) {
             return redirect()->back()

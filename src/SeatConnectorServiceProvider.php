@@ -45,10 +45,9 @@ class SeatConnectorServiceProvider extends AbstractSeatPlugin
     /**
      * Bootstrap the application services.
      *
-     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    public function boot(Router $router)
+    public function boot(Router $router): void
     {
         $this->addCommands();
         $this->addMigrations();
@@ -64,7 +63,7 @@ class SeatConnectorServiceProvider extends AbstractSeatPlugin
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/Config/package.sidebar.php', 'package.sidebar');
         $this->mergeConfigFrom(__DIR__ . '/Config/seat-connector.config.php', 'seat-connector.config');
@@ -123,7 +122,7 @@ class SeatConnectorServiceProvider extends AbstractSeatPlugin
     /**
      * Import migrations.
      */
-    private function addMigrations()
+    private function addMigrations(): void
     {
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations/');
     }
@@ -131,7 +130,7 @@ class SeatConnectorServiceProvider extends AbstractSeatPlugin
     /**
      * Register cli commands.
      */
-    private function addCommands()
+    private function addCommands(): void
     {
         $this->commands([
             DriverUpdateSets::class,
@@ -142,7 +141,7 @@ class SeatConnectorServiceProvider extends AbstractSeatPlugin
     /**
      * Register views.
      */
-    private function addViews()
+    private function addViews(): void
     {
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'seat-connector');
     }
@@ -150,7 +149,7 @@ class SeatConnectorServiceProvider extends AbstractSeatPlugin
     /**
      * Import routes.
      */
-    private function addRoutes()
+    private function addRoutes(): void
     {
         if (! $this->app->routesAreCached()) {
             include __DIR__ . '/Http/routes.php';
@@ -160,7 +159,7 @@ class SeatConnectorServiceProvider extends AbstractSeatPlugin
     /**
      * Import translations.
      */
-    private function addTranslations()
+    private function addTranslations(): void
     {
         $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'seat-connector');
     }
@@ -168,7 +167,7 @@ class SeatConnectorServiceProvider extends AbstractSeatPlugin
     /**
      * Import API endpoints.
      */
-    private function addApiEndpoints()
+    private function addApiEndpoints(): void
     {
         $this->registerApiAnnotationsPath([
             __DIR__ . '/Http/Resources',
@@ -179,7 +178,7 @@ class SeatConnectorServiceProvider extends AbstractSeatPlugin
     /**
      * Register events listeners.
      */
-    private function addEvents()
+    private function addEvents(): void
     {
         Event::listen(EventLogger::class, LoggerListener::class);
 

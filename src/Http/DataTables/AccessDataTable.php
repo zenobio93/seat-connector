@@ -41,16 +41,12 @@ class AccessDataTable extends DataTable
      *
      * @throws \Exception
      */
-    public function ajax()
+    public function ajax(): \Illuminate\Http\JsonResponse
     {
         return datatables()
             ->query($this->applyScopes($this->query()))
-            ->editColumn('action', function ($row) {
-                return view('seat-connector::access.includes.buttons.remove', compact('row'));
-            })
-            ->editColumn('entity_name', function ($row) {
-                return strip_tags($row->entity_name);
-            })
+            ->editColumn('action', fn($row) => view('seat-connector::access.includes.buttons.remove', ['row' => $row]))
+            ->editColumn('entity_name', fn($row): string => strip_tags((string) $row->entity_name))
             ->make(true);
     }
 
@@ -96,7 +92,7 @@ class AccessDataTable extends DataTable
     /**
      * @return array
      */
-    public function getColumns()
+    public function getColumns(): array
     {
         return [
             'entity_name' => [
@@ -115,9 +111,9 @@ class AccessDataTable extends DataTable
      */
     private function getCorporationQuery()
     {
-        $query = Set::
+        return Set::
             join('seat_connector_set_entity', 'set_id', 'id')
-            ->join((new CorporationInfo())->getTable(), function ($join) {
+            ->join((new CorporationInfo())->getTable(), function ($join): void {
                 $join->on('entity_id', 'corporation_id');
                 $join->where('entity_type', CorporationInfo::class);
             })
@@ -129,8 +125,6 @@ class AccessDataTable extends DataTable
                 'seat_connector_set_entity.entity_type',
                 'seat_connector_set_entity.entity_id',
                 (new CorporationInfo())->getTable() . '.name as entity_name');
-
-        return $query;
     }
 
     /**
@@ -138,9 +132,9 @@ class AccessDataTable extends DataTable
      */
     private function getTitleQuery()
     {
-        $query = Set::
+        return Set::
             join('seat_connector_set_entity', 'set_id', 'seat_connector_sets.id')
-            ->join((new CorporationTitle())->getTable(), function ($join) {
+            ->join((new CorporationTitle())->getTable(), function ($join): void {
                 $join->on('entity_id', (new CorporationTitle())->getTable() . '.id')
                     ->where('entity_type', CorporationTitle::class);
             })
@@ -152,8 +146,6 @@ class AccessDataTable extends DataTable
                 'seat_connector_set_entity.entity_type',
                 'seat_connector_set_entity.entity_id',
                 (new CorporationTitle())->getTable() . '.name as entity_name');
-
-        return $query;
     }
 
     /**
@@ -161,9 +153,9 @@ class AccessDataTable extends DataTable
      */
     private function getAllianceQuery()
     {
-        $query = Set::
+        return Set::
             join('seat_connector_set_entity', 'set_id', 'id')
-            ->join((new Alliance())->getTable(), function ($join) {
+            ->join((new Alliance())->getTable(), function ($join): void {
                 $join->on('entity_id', 'alliance_id');
                 $join->where('entity_type', Alliance::class);
             })
@@ -175,8 +167,6 @@ class AccessDataTable extends DataTable
                 'seat_connector_set_entity.entity_type',
                 'seat_connector_set_entity.entity_id',
                 (new Alliance())->getTable() . '.name as entity_name');
-
-        return $query;
     }
 
     /**
@@ -184,9 +174,9 @@ class AccessDataTable extends DataTable
      */
     private function getRoleQuery()
     {
-        $query = Set::
+        return Set::
             join('seat_connector_set_entity', 'set_id', 'id')
-            ->join((new Role())->getTable(), function ($join) {
+            ->join((new Role())->getTable(), function ($join): void {
                 $join->on('entity_id', (new Role())->getTable() . '.id');
                 $join->where('entity_type', Role::class);
             })
@@ -198,8 +188,6 @@ class AccessDataTable extends DataTable
                 'seat_connector_set_entity.entity_type',
                 'seat_connector_set_entity.entity_id',
                 (new Role())->getTable() . '.title as entity_name');
-
-        return $query;
     }
 
     /**
@@ -207,9 +195,9 @@ class AccessDataTable extends DataTable
      */
     private function getUserQuery()
     {
-        $query = Set::
+        return Set::
             join('seat_connector_set_entity', 'set_id', 'id')
-            ->join((new User())->getTable(), function ($join) {
+            ->join((new User())->getTable(), function ($join): void {
                 $join->on('entity_id', (new User())->getTable() . '.id');
                 $join->where('entity_type', User::class);
             })
@@ -221,8 +209,6 @@ class AccessDataTable extends DataTable
                 'seat_connector_set_entity.entity_type',
                 'seat_connector_set_entity.entity_id',
                 (new User())->getTable() . '.name as entity_name');
-
-        return $query;
     }
 
     /**
@@ -230,7 +216,7 @@ class AccessDataTable extends DataTable
      */
     private function getPublicQuery()
     {
-        $query = Set::where('is_public', true)
+        return Set::where('is_public', true)
             ->select(
                 'seat_connector_sets.id',
                 'seat_connector_sets.connector_type',
@@ -238,8 +224,6 @@ class AccessDataTable extends DataTable
                 'seat_connector_sets.name'
             )
             ->selectRaw('? as entity_type, ? as entity_id, ? as entity_name', ['public', '0', '']);
-
-        return $query;
     }
 
     /**
@@ -247,9 +231,9 @@ class AccessDataTable extends DataTable
      */
     private function getSquadQuery()
     {
-        $query = Set::
+        return Set::
             join('seat_connector_set_entity', 'set_id', 'id')
-            ->join((new Squad())->getTable(), function ($join) {
+            ->join((new Squad())->getTable(), function ($join): void {
                 $join->on('entity_id', (new Squad())->getTable() . '.id');
                 $join->where('entity_type', Squad::class);
             })
@@ -261,7 +245,5 @@ class AccessDataTable extends DataTable
                 'seat_connector_set_entity.entity_type',
                 'seat_connector_set_entity.entity_id',
                 (new Squad())->getTable() . '.name as entity_name');
-
-        return $query;
     }
 }

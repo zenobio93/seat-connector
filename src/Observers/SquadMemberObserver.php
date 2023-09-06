@@ -30,34 +30,22 @@ use Warlof\Seat\Connector\Jobs\NotifyDriver;
  */
 class SquadMemberObserver
 {
-    /**
-     * @param  \Seat\Web\Models\Squads\SquadMember  $member
-     */
-    public function created(SquadMember $member)
+    public function created(SquadMember $member): void
     {
         $this->handle($member);
     }
 
-    /**
-     * @param  \Seat\Web\Models\Squads\SquadMember  $member
-     */
-    public function updated(SquadMember $member)
+    public function updated(SquadMember $member): void
     {
         $this->handle($member);
     }
 
-    /**
-     * @param  \Seat\Web\Models\Squads\SquadMember  $member
-     */
-    public function deleted(SquadMember $member)
+    public function deleted(SquadMember $member): void
     {
         $this->handle($member);
     }
 
-    /**
-     * @param  \Seat\Web\Models\Squads\SquadMember  $member
-     */
-    private function handle(SquadMember $member)
+    private function handle(SquadMember $member): void
     {
         // attempt to retrieve attached user
         $user = SeatUser::standard()

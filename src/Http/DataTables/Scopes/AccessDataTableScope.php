@@ -29,25 +29,12 @@ use Yajra\DataTables\Contracts\DataTableScope;
 class AccessDataTableScope implements DataTableScope
 {
     /**
-     * @var string
-     */
-    private $filter_type;
-
-    /**
-     * @var string|null
-     */
-    private $connector_driver;
-
-    /**
      * AccessDataTableScope constructor.
      *
-     * @param  string  $filter_type
      * @param  string|null  $connector_driver
      */
-    public function __construct(string $filter_type, ?string $connector_driver)
+    public function __construct(private readonly string $filter_type, private readonly ?string $connector_driver)
     {
-        $this->connector_driver = $connector_driver;
-        $this->filter_type = $filter_type;
     }
 
     /**

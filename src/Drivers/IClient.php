@@ -48,17 +48,13 @@ interface IClient
     public function getSets(): array;
 
     /**
-     * @param  string  $id
      * @return \Warlof\Seat\Connector\Drivers\IUser|null
-     *
      * @throws \Warlof\Seat\Connector\Exceptions\DriverException
      */
     public function getUser(string $id): ?IUser;
 
     /**
-     * @param  string  $id
      * @return \Warlof\Seat\Connector\Drivers\ISet|null
-     *
      * @throws \Warlof\Seat\Connector\Exceptions\DriverException
      */
     public function getSet(string $id): ?ISet;

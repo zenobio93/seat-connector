@@ -33,9 +33,9 @@ class CreateSeatConnectorUsersTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('seat_connector_users', function (Blueprint $table) {
+        Schema::create('seat_connector_users', function (Blueprint $table): void {
             $table->increments('id');
 
             $table->string('connector_type');
@@ -68,7 +68,7 @@ class CreateSeatConnectorUsersTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('seat_connector_users');
     }

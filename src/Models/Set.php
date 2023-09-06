@@ -110,7 +110,7 @@ class Set extends Model
      * @param  array  $options
      * @return bool
      */
-    public function save(array $options = [])
+    public function save(array $options = []): bool
     {
         if (! parent::save($options)) {
             return false;

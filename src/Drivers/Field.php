@@ -42,19 +42,10 @@ class Field
     private $type;
 
     /**
-     * @var string
-     */
-    private $driver;
-
-    /**
      * Field constructor.
-     *
-     * @param  array  $field
      */
-    public function __construct(string $driver, array $field)
+    public function __construct(private readonly string $driver, array $field)
     {
-        $this->driver = $driver;
-
         $this->name = $field['name'];
         $this->label = $field['label'];
         $this->type = $field['type'];
@@ -115,7 +106,7 @@ class Field
      */
     public function __get($name)
     {
-        $method = sprintf('get%s', ucfirst($name));
+        $method = sprintf('get%s', ucfirst((string) $name));
 
         if (property_exists($this, $name)) {
             return $this->$name;

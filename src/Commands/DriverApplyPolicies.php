@@ -59,22 +59,18 @@ class DriverApplyPolicies extends Command
 
         // request user confirmation before queuing jobs
         if (empty($drivers_parameter)) {
-            if (app()->runningInConsole()) {
-                if (! $this->confirm('Sets from all installed drivers will be synchronized. Do you wish to continue?', true)) {
-                    return;
-                }
+            if (app()->runningInConsole() && ! $this->confirm('Sets from all installed drivers will be synchronized. Do you wish to continue?', true)) {
+                return;
             }
         } else {
-            if (app()->runningInConsole()) {
-                if (! $this->confirm(
-                    sprintf('Sets from %s driver(s) will be synchronized. Do you wish to continue?',
-                        implode(',', $drivers_parameter)), true)) {
-                    return;
-                }
+            if (app()->runningInConsole() && ! $this->confirm(
+                sprintf('Sets from %s driver(s) will be synchronized. Do you wish to continue?',
+                    implode(',', $drivers_parameter)), true)) {
+                return;
             }
 
             // ensure all provided drivers are valid
-            if ($drivers->intersect($drivers_parameter)->count() != count($drivers_parameter)) {
+            if ($drivers->intersect($drivers_parameter)->count() != (is_countable($drivers_parameter) ? count($drivers_parameter) : 0)) {
                 throw new UnknownDriverException();
             }
         }

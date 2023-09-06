@@ -42,9 +42,7 @@ interface IUser
     public function getName(): string;
 
     /**
-     * @param  string  $name
      * @return bool
-     *
      * @throws \Warlof\Seat\Connector\Exceptions\DriverException
      */
     public function setName(string $name): bool;
@@ -57,15 +55,11 @@ interface IUser
     public function getSets(): array;
 
     /**
-     * @param  \Warlof\Seat\Connector\Drivers\ISet  $group
-     *
      * @throws \Warlof\Seat\Connector\Exceptions\DriverException
      */
     public function addSet(ISet $group);
 
     /**
-     * @param  \Warlof\Seat\Connector\Drivers\ISet  $group
-     *
      * @throws \Warlof\Seat\Connector\Exceptions\DriverException
      */
     public function removeSet(ISet $group);

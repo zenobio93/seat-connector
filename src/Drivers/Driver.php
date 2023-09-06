@@ -30,30 +30,20 @@ use Warlof\Seat\Connector\Exceptions\MissingDriverSettingsField;
  */
 class Driver
 {
-    /**
-     * @var string
-     */
-    private $name;
+    private readonly string $name;
 
-    /**
-     * @var string
-     */
-    private $icon;
+    private readonly string $icon;
 
-    /**
-     * @var string
-     */
-    private $client;
+    private readonly string $client;
 
     /**
      * @var \Warlof\Seat\Connector\Drivers\Field[]
      */
-    private $settings;
+    private readonly \Illuminate\Support\Collection $settings;
 
     /**
      * Driver constructor.
      *
-     * @param  array  $config
      *
      * @throws \Warlof\Seat\Connector\Exceptions\InvalidDriverException
      */
@@ -113,11 +103,9 @@ class Driver
     }
 
     /**
-     * @param  array  $structure
-     *
      * @throws \Warlof\Seat\Connector\Exceptions\InvalidDriverException
      */
-    private function checkStructure(array $structure)
+    private function checkStructure(array $structure): void
     {
         $configuration_schema = [
             'name:string',
@@ -134,14 +122,12 @@ class Driver
     }
 
     /**
-     * @param  array  $schema
-     * @param  array  $structure
      *
      * @throws \Warlof\Seat\Connector\Exceptions\InvalidDriverSettingsException
      * @throws \Warlof\Seat\Connector\Exceptions\InvalidDriverSettingsType
      * @throws \Warlof\Seat\Connector\Exceptions\MissingDriverSettingsField
      */
-    private function validate(array $schema, array $structure)
+    private function validate(array $schema, array $structure): void
     {
         foreach ($schema as $element => $component) {
             if (is_int($element)) {
@@ -163,7 +149,6 @@ class Driver
     }
 
     /**
-     * @param  string  $node
      * @param $value
      * @return mixed
      *
@@ -171,7 +156,7 @@ class Driver
      * @throws \Warlof\Seat\Connector\Exceptions\InvalidDriverSettingsType
      * @throws \Warlof\Seat\Connector\Exceptions\MissingDriverSettingsField
      */
-    private function validateNode(string $node, $value)
+    private function validateNode(string $node, array $value): string
     {
         $parts = explode(':', $node);
         $property = $parts[0];
@@ -185,7 +170,7 @@ class Driver
             throw new InvalidDriverSettingsType(sprintf('The property %s must be of type %s.', $property, $type));
         }
 
-        if (is_null($value) || empty($value)) {
+        if (is_null($value) || $value === []) {
             throw new InvalidDriverSettingsException(sprintf('The property %s is mandatory.', $property));
         }
 
@@ -193,7 +178,6 @@ class Driver
     }
 
     /**
-     * @param  string  $type
      * @param $value
      * @return bool
      */
@@ -208,7 +192,7 @@ class Driver
                 }
 
                 return class_exists($value, true);
-            case strpos($type, 'enum') === 0:
+            case str_starts_with($type, 'enum'):
                 $types = explode(',', substr($type, 5, -1));
 
                 return in_array($value, $types);

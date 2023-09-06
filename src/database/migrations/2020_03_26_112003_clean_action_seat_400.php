@@ -33,9 +33,9 @@ class CleanActionSeat400 extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('seat_connector_users', function (Blueprint $table) {
+        Schema::table('seat_connector_users', function (Blueprint $table): void {
             $manager = Schema::getConnection()->getDoctrineSchemaManager();
             $meta = $manager->listTableDetails('seat_connector_users');
 
@@ -61,7 +61,7 @@ class CleanActionSeat400 extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
     }
 }

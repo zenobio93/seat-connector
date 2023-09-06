@@ -34,7 +34,6 @@ use Warlof\Seat\Connector\Models\Set;
 class LookupController extends Controller
 {
     /**
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function getTitles(Request $request)
@@ -42,12 +41,10 @@ class LookupController extends Controller
         $titles = CorporationTitle::where('corporation_id', $request->query('corporation_id'))
             ->where('name', 'like', '%' . $request->query('q', '') . '%')
             ->get()
-            ->map(function ($title, $key) {
-                return [
-                    'id'   => $title->id,
-                    'text' => strip_tags($title->name),
-                ];
-            });
+            ->map(fn($title, $key): array => [
+                'id'   => $title->id,
+                'text' => strip_tags((string) $title->name),
+            ]);
 
         return response()->json([
             'results' => $titles,
@@ -55,19 +52,16 @@ class LookupController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function getRoles(Request $request)
     {
         $roles = Role::where('title', 'like', '%' . $request->query('q', '') . '%')
                     ->get()
-                    ->map(function ($role, $key) {
-                        return [
-                            'id'   => $role->id,
-                            'text' => $role->title,
-                        ];
-                    });
+                    ->map(fn($role, $key): array => [
+                        'id'   => $role->id,
+                        'text' => $role->title,
+                    ]);
 
         return response()->json([
             'results' => $roles,
@@ -75,19 +69,16 @@ class LookupController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function getSquads(Request $request)
     {
         $squads = Squad::where('name', 'like', '%' . $request->query('q', '') . '%')
                     ->get()
-                    ->map(function ($squad, $key) {
-                        return [
-                            'id'   => $squad->id,
-                            'text' => $squad->name,
-                        ];
-                    });
+                    ->map(fn($squad, $key): array => [
+                        'id'   => $squad->id,
+                        'text' => $squad->name,
+                    ]);
 
         return response()->json([
             'results' => $squads,
@@ -95,7 +86,6 @@ class LookupController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function getSets(Request $request)
@@ -103,12 +93,10 @@ class LookupController extends Controller
         $sets = Set::where('name', 'like', '%' . $request->query('q', '') . '%')
                    ->where('connector_type', $request->query('driver', ''))
                    ->get()
-                   ->map(function ($group, $key) {
-                       return [
-                           'id' => $group->id,
-                           'text' => $group->name,
-                       ];
-                   });
+                   ->map(fn($group, $key): array => [
+                       'id' => $group->id,
+                       'text' => $group->name,
+                   ]);
 
         return response()->json([
             'results' => $sets,

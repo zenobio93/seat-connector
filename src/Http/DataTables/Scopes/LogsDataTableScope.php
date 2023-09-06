@@ -29,24 +29,12 @@ use Yajra\DataTables\Contracts\DataTableScope;
 class LogsDataTableScope implements DataTableScope
 {
     /**
-     * @var string
-     */
-    private $level;
-
-    /**
-     * @var string
-     */
-    private $connector_driver;
-
-    /**
      * LogsDataTableScope constructor.
      *
      * @param  mixed  $driver
      */
-    public function __construct(string $connector_driver, string $level)
+    public function __construct(private readonly string $connector_driver, private readonly string $level)
     {
-        $this->level = $level;
-        $this->connector_driver = $connector_driver;
     }
 
     /**

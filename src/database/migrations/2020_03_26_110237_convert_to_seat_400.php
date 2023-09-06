@@ -32,13 +32,13 @@ class ConvertToSeat400 extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         DB::table('seat_connector_users')
             ->select('group_id')
             ->orderBy('group_id')
             ->distinct()
-            ->each(function ($user) {
+            ->each(function ($user): void {
                 $migration = DB::table('mig_groups')
                     ->where('group_id', $user->group_id)
                     ->first();
@@ -55,7 +55,7 @@ class ConvertToSeat400 extends Migration
             ->where('entity_type', 'Seat\Web\Models\Group')
             ->orderBy('entity_id')
             ->distinct()
-            ->each(function ($map) {
+            ->each(function ($map): void {
                 $migration = DB::table('mig_groups')
                     ->where('group_id', $map->entity_id)
                     ->first();
@@ -64,7 +64,7 @@ class ConvertToSeat400 extends Migration
                     ->where('entity_id', $map->entity_id)
                     ->where('entity_type', 'Seat\Web\Models\Group')
                     ->update([
-                        'entity_type' => 'Seat\Web\Models\User',
+                        'entity_type' => \Seat\Web\Models\User::class,
                         'entity_id'   => $migration->new_user_id,
                     ]);
             });
@@ -75,7 +75,7 @@ class ConvertToSeat400 extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
     }
 }

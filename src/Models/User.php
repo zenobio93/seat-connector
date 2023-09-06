@@ -73,9 +73,7 @@ class User extends Model
     }
 
     /**
-     * @param  string  $set_id
      * @return bool
-     *
      * @throws \Seat\Services\Exceptions\SettingException
      */
     public function isAllowedSet(string $set_id): bool
@@ -121,13 +119,11 @@ class User extends Model
      */
     public function getUserSets()
     {
-        $rows = Set::where('connector_type', $this->connector_type)
-            ->whereHas('users', function ($query) {
+        return Set::where('connector_type', $this->connector_type)
+            ->whereHas('users', function ($query): void {
                 $query->where('entity_id', $this->user_id);
             })
             ->select('connector_id');
-
-        return $rows;
     }
 
     /**
@@ -135,13 +131,11 @@ class User extends Model
      */
     public function getRoleSets()
     {
-        $rows = Set::where('connector_type', $this->connector_type)
-            ->whereHas('roles', function ($query) {
+        return Set::where('connector_type', $this->connector_type)
+            ->whereHas('roles', function ($query): void {
                 $query->whereIn('entity_id', $this->user->roles->pluck('id'));
             })
             ->select('connector_id');
-
-        return $rows;
     }
 
     /**
@@ -149,15 +143,13 @@ class User extends Model
      */
     public function getCorporationSets()
     {
-        $rows = Set::where('connector_type', $this->connector_type)
-            ->whereHas('corporations', function ($query) {
+        return Set::where('connector_type', $this->connector_type)
+            ->whereHas('corporations', function ($query): void {
                 $corporations = $this->user->characters->pluck('affiliation.corporation_id');
 
                 $query->whereIn('entity_id', $corporations);
             })
             ->select('connector_id');
-
-        return $rows;
     }
 
     /**
@@ -165,17 +157,13 @@ class User extends Model
      */
     public function getTitleSets()
     {
-        $rows = Set::where('connector_type', $this->connector_type)
-            ->whereHas('titles', function ($query) {
-                $titles = $this->user->characters->map(function ($item) {
-                    return $item->titles->pluck('id');
-                });
+        return Set::where('connector_type', $this->connector_type)
+            ->whereHas('titles', function ($query): void {
+                $titles = $this->user->characters->map(fn($item) => $item->titles->pluck('id'));
 
                 $query->whereIn('entity_id', $titles->flatten());
             })
             ->select('connector_id');
-
-        return $rows;
     }
 
     /**
@@ -183,15 +171,13 @@ class User extends Model
      */
     public function getAllianceSets()
     {
-        $rows = Set::where('connector_type', $this->connector_type)
-            ->whereHas('alliances', function ($query) {
+        return Set::where('connector_type', $this->connector_type)
+            ->whereHas('alliances', function ($query): void {
                 $alliances = $this->user->characters->pluck('affiliation.alliance_id');
 
                 $query->whereIn('entity_id', $alliances);
             })
             ->select('connector_id');
-
-        return $rows;
     }
 
     /**
@@ -199,13 +185,11 @@ class User extends Model
      */
     public function getSquadSets()
     {
-        $rows = Set::where('connector_type', $this->connector_type)
-            ->whereHas('squads', function ($query) {
+        return Set::where('connector_type', $this->connector_type)
+            ->whereHas('squads', function ($query): void {
                 $query->whereIn('entity_id', $this->user->squads->pluck('id'));
             })
             ->select('connector_id');
-
-        return $rows;
     }
 
     /**
@@ -213,11 +197,9 @@ class User extends Model
      */
     public function getPublicSets()
     {
-        $rows = Set::where('connector_type', $this->connector_type)
+        return Set::where('connector_type', $this->connector_type)
             ->where('is_public', true)
             ->select('connector_id');
-
-        return $rows;
     }
 
     /**

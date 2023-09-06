@@ -47,11 +47,6 @@ class DriverApplyPolicies implements ShouldQueue
     private $client;
 
     /**
-     * @var string
-     */
-    protected $driver;
-
-    /**
      * @var bool
      */
     protected $terminator;
@@ -65,12 +60,9 @@ class DriverApplyPolicies implements ShouldQueue
 
     /**
      * DriverApplyPolicies constructor.
-     *
-     * @param  string  $driver
      */
-    public function __construct(string $driver, bool $terminator = false)
+    public function __construct(protected string $driver, bool $terminator = false)
     {
-        $this->driver = $driver;
         $this->terminator = $terminator;
         $this->tags = array_merge($this->tags, [$driver]);
 
@@ -128,7 +120,6 @@ class DriverApplyPolicies implements ShouldQueue
     }
 
     /**
-     * @param  \Warlof\Seat\Connector\Drivers\IUser  $user
      *
      * @throws \Seat\Services\Exceptions\SettingException
      * @throws \Warlof\Seat\Connector\Exceptions\DriverException

@@ -33,9 +33,9 @@ class AddPublicToSeatConnectorSetsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('seat_connector_sets', function (Blueprint $table) {
+        Schema::table('seat_connector_sets', function (Blueprint $table): void {
             $table->boolean('is_public')->default(false)->after('name');
         });
     }
@@ -45,9 +45,9 @@ class AddPublicToSeatConnectorSetsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table('seat_connector_sets', function (Blueprint $table) {
+        Schema::table('seat_connector_sets', function (Blueprint $table): void {
             $table->dropColumn('is_public');
         });
     }

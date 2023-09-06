@@ -31,13 +31,10 @@ use Warlof\Seat\Connector\Models\User;
 trait ConnectorPolicyManagement
 {
     /**
-     * @param  \Warlof\Seat\Connector\Models\User  $profile
-     * @param  \Warlof\Seat\Connector\Drivers\IUser  $identity
-     *
      * @throws \Seat\Services\Exceptions\SettingException
      * @throws \Warlof\Seat\Connector\Exceptions\DriverException
      */
-    private function handleSetsUpdate(User $profile, IUser $identity)
+    private function handleSetsUpdate(User $profile, IUser $identity): void
     {
         $user_sets = $identity->getSets();
 
@@ -54,18 +51,15 @@ trait ConnectorPolicyManagement
     }
 
     /**
-     * @param  \Warlof\Seat\Connector\Models\User  $profile
-     * @param  \Warlof\Seat\Connector\Drivers\IUser  $identity
-     *
      * @throws \Seat\Services\Exceptions\SettingException
      * @throws \Warlof\Seat\Connector\Exceptions\DriverException
      */
-    private function handleNicknameUpdate(User $profile, IUser $identity)
+    private function handleNicknameUpdate(User $profile, IUser $identity): void
     {
         $new_nickname = $profile->buildConnectorNickname();
 
         // identity nick is already up-to-date - we have nothing to do here
-        if ($identity->getName() == $new_nickname) {
+        if ($identity->getName() === $new_nickname) {
             return;
         }
 
@@ -80,10 +74,8 @@ trait ConnectorPolicyManagement
     }
 
     /**
-     * @param  \Warlof\Seat\Connector\Models\User  $profile
      * @param  \Warlof\Seat\Connector\Drivers\ISet[]  $sets
      * @return \Illuminate\Support\Collection
-     *
      * @throws \Seat\Services\Exceptions\SettingException
      */
     private function getDroppableSets(User $profile, array $sets)
@@ -100,8 +92,6 @@ trait ConnectorPolicyManagement
     }
 
     /**
-     * @param  \Warlof\Seat\Connector\Models\User  $profile
-     * @param  array  $sets
      * @return \Illuminate\Support\Collection
      *
      * @throws \Seat\Services\Exceptions\SettingException
@@ -117,9 +107,7 @@ trait ConnectorPolicyManagement
         $allowed_sets = $profile->allowedSets();
 
         foreach ($allowed_sets as $set_id) {
-            if (empty(array_filter($sets, function ($set) use ($set_id) {
-                return $set->getId() == $set_id;
-            }))) {
+            if (array_filter($sets, fn($set): bool => $set->getId() == $set_id) === []) {
                 $pending_adds->push($set_id);
             }
         }
@@ -128,14 +116,10 @@ trait ConnectorPolicyManagement
     }
 
     /**
-     * @param  \Warlof\Seat\Connector\Drivers\IUser  $identity
-     * @param  \Warlof\Seat\Connector\Models\User  $profile
-     * @param  array  $pending_adds
-     * @param  array  $pending_drops
      *
      * @throws \Warlof\Seat\Connector\Exceptions\DriverException
      */
-    private function updateUserSets(IUser $identity, User $profile, array $pending_adds, array $pending_drops)
+    private function updateUserSets(IUser $identity, User $profile, array $pending_adds, array $pending_drops): void
     {
         // drop all sets which have been marked for a removal
         foreach ($pending_drops as $set_id) {

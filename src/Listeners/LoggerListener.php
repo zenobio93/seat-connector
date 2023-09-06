@@ -29,16 +29,16 @@ use Warlof\Seat\Connector\Models\Log;
  */
 class LoggerListener
 {
-    const DEBUG = 100;
-    const INFO = 200;
-    const NOTICE = 250;
-    const WARNING = 300;
-    const ERROR = 400;
-    const CRITICAL = 500;
-    const ALERT = 550;
-    const EMERGENCY = 600;
+    final public const DEBUG = 100;
+    final public const INFO = 200;
+    final public const NOTICE = 250;
+    final public const WARNING = 300;
+    final public const ERROR = 400;
+    final public const CRITICAL = 500;
+    final public const ALERT = 550;
+    final public const EMERGENCY = 600;
 
-    const LEVELS = [
+    final public const LEVELS = [
         'debug'     => self::DEBUG,
         'info'      => self::INFO,
         'notice'    => self::NOTICE,
@@ -49,10 +49,7 @@ class LoggerListener
         'emergency' => self::EMERGENCY,
     ];
 
-    /**
-     * @param  \Warlof\Seat\Connector\Events\EventLogger  $event
-     */
-    public function handle(EventLogger $event)
+    public function handle(EventLogger $event): void
     {
         if (! array_key_exists($event->level, self::LEVELS)) {
             return;

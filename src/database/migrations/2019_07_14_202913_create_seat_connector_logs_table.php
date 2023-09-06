@@ -33,9 +33,9 @@ class CreateSeatConnectorLogsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('seat_connector_logs', function (Blueprint $table) {
+        Schema::create('seat_connector_logs', function (Blueprint $table): void {
             $table->string('connector_type');
             $table->enum('level', ['debug', 'info', 'notice', 'warning', 'error', 'critical', 'alert', 'emergency']);
             $table->string('category');
@@ -50,7 +50,7 @@ class CreateSeatConnectorLogsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('seat_connector_logs');
     }

@@ -34,20 +34,18 @@ class UserMappingDataTable extends DataTable
      *
      * @throws \Exception
      */
-    public function ajax()
+    public function ajax(): \Illuminate\Http\JsonResponse
     {
         return datatables()
             ->eloquent($this->applyScopes($this->query()))
-            ->editColumn('action', function ($row) {
-                return view('seat-connector::users.partials.delete', compact('row'));
-            })
+            ->editColumn('action', fn($row) => view('seat-connector::users.partials.delete', ['row' => $row]))
             ->make(true);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
      */
-    public function query()
+    public function query(): \Illuminate\Database\Query\Builder
     {
         return User::with('user')
             ->select('seat_connector_users.id', 'connector_id', 'connector_name', 'user_id');
@@ -69,7 +67,7 @@ class UserMappingDataTable extends DataTable
     /**
      * @return array
      */
-    protected function getColumns()
+    protected function getColumns(): array
     {
         return [
             [

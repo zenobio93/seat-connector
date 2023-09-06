@@ -18,10 +18,10 @@
   },
   "require": {
     "ext-json": "*",
-    "eveseat/services": "^4.1.1",
-    "eveseat/eveapi": "^4.0.0",
-    "eveseat/web": "^4.0.0",
-    "eveseat/api": "^4.0.0"
+    "eveseat/services": "^5.0",
+    "eveseat/eveapi": "^5.0",
+    "eveseat/web": "^5.0",
+    "eveseat/api": "^5.0"
   },
   "extra": {
     "laravel": {
@@ -29,5 +29,9 @@
         "Warlof\\Seat\\Connector\\SeatConnectorServiceProvider"
       ]
     }
+  },
+  "require-dev": {
+    "rector/rector": "^0.18.2",
+    "driftingly/rector-laravel": "^0.24.1"
   }
 }
