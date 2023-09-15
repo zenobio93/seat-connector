@@ -47,13 +47,13 @@ class AccessDataTable extends DataTable
             ->query($this->applyScopes($this->query()))
             ->editColumn('action', fn($row) => view('seat-connector::access.includes.buttons.remove', ['row' => $row]))
             ->editColumn('entity_name', fn($row): string => strip_tags((string) $row->entity_name))
-            ->make(true);
+            ->toJson();
     }
 
     /**
-     * @return \Illuminate\Database\Query\Builder
+     * @return \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder
      */
-    public function query()
+    public function query(): \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder
     {
         $corporation = $this->getCorporationQuery();
         $titles = $this->getTitleQuery();
@@ -76,7 +76,7 @@ class AccessDataTable extends DataTable
     /**
      * @return \Yajra\DataTables\Html\Builder
      */
-    public function html()
+    public function html(): \Yajra\DataTables\Html\Builder
     {
         return $this->builder()
             ->columns($this->getColumns())

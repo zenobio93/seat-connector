@@ -39,13 +39,13 @@ class UserMappingDataTable extends DataTable
         return datatables()
             ->eloquent($this->applyScopes($this->query()))
             ->editColumn('action', fn($row) => view('seat-connector::users.partials.delete', ['row' => $row]))
-            ->make(true);
+            ->toJson();
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
      */
-    public function query(): \Illuminate\Database\Query\Builder
+    public function query(): \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
     {
         return User::with('user')
             ->select('seat_connector_users.id', 'connector_id', 'connector_name', 'user_id');
@@ -54,7 +54,7 @@ class UserMappingDataTable extends DataTable
     /**
      * @return \Yajra\DataTables\Html\Builder
      */
-    public function html()
+    public function html(): \Yajra\DataTables\Html\Builder
     {
         return $this->builder()
             ->columns($this->getColumns())

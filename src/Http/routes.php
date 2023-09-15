@@ -39,7 +39,7 @@ Route::group([
                 ->uses('SettingsController@index');
 
             Route::post('/settings')
-                ->name('seat-connector.settings')
+                ->name('seat-connector.settings.update')
                 ->uses('SettingsController@update');
 
             Route::post('/settings/command')

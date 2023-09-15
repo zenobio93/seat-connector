@@ -39,7 +39,7 @@
 
       $('#connector-filter-users').select2({
           ajax: {
-              url: '{{ route('fastlookup.users') }}',
+              url: '{{ route('seatcore::fastlookup.users') }}',
               dataType: 'json',
               cache: true
           },
@@ -57,7 +57,7 @@
 
       $('#connector-filter-corporations').select2({
           ajax: {
-              url: '{{ route('fastlookup.corporations') }}',
+              url: '{{ route('seatcore::fastlookup.corporations') }}',
               dataType: 'json',
               cache: true
           },
@@ -81,7 +81,7 @@
 
       $('#connector-filter-alliances').select2({
           ajax: {
-              url: '{{ route('fastlookup.alliances') }}',
+              url: '{{ route('seatcore::fastlookup.alliances') }}',
               dataType: 'json',
               cache: true
           },

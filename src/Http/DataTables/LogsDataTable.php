@@ -40,13 +40,13 @@ class LogsDataTable extends DataTable
             ->eloquent($this->applyScopes($this->query()))
             ->editColumn('created_at', fn($row) => view('web::partials.date', ['datetime' => $row->created_at]))
             ->editColumn('level', fn($row) => view('seat-connector::logs.includes.level', ['row' => $row]))
-            ->make(true);
+            ->toJson();
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query()
+    public function query(): \Illuminate\Database\Eloquent\Builder
     {
         return Log::query();
     }
@@ -54,7 +54,7 @@ class LogsDataTable extends DataTable
     /**
      * @return \Yajra\DataTables\Html\Builder
      */
-    public function html()
+    public function html(): \Yajra\DataTables\Html\Builder
     {
         return $this->builder()
             ->columns($this->getColumns())
