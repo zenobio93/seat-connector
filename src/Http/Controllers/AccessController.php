@@ -53,7 +53,7 @@ class AccessController extends Controller
         $driver = request()->query('driver', Arr::get(Arr::last($available_drivers), 'name'));
 
         // init the filter type using either the query parameter or public
-        switch (request()->query('filter_type', 'users')) {
+        switch (request()->query('filter_type', '')) {
             case 'public':
                 $filter_type = 'public';
                 break;
