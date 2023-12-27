@@ -205,7 +205,7 @@ This method is used by the connector to revoke a Set from the user.
 
 You can find some implementation example of the new connector on repository listed bellow :
 
-- [Slackbot - Slack Connector Driver](https://github.com/warlof/slackbot/tree/seat-connector)
-- [Discord - Discord Connector Driver](https://github.com/warlof/seat-discord-connector/tree/seat-connector)
-- [Teamspeak - Teamspeak Connector Driver](https://github.com/warlof/seat-teamspeak/tree/seat-connector)
+- [Slackbot - Slack Connector Driver](https://github.com/zenobio93/slackbot/tree/seat-connector)
+- [Discord - Discord Connector Driver](https://github.com/zenobio93/seat-discord-connector/tree/seat-connector)
+- [Teamspeak - Teamspeak Connector Driver](https://github.com/zenobio93/seat-teamspeak/tree/seat-connector)
  

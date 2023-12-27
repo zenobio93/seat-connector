@@ -5,9 +5,11 @@ Provide basic layer for SeAT connectors
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/warlof/seat-connector?style=for-the-badge)](https://packagist.org/packages/warlof/seat-connector)
 [![Downloads](https://img.shields.io/packagist/dt/warlof/seat-connector?style=for-the-badge)](https://packagist.org/packages/warlof/seat-connector)
-[![Latest Stable Version](https://img.shields.io/badge/SeAT-4.0.x-blueviolet?style=for-the-badge)](https://github.com/eveseat/seat)
-[![Maintainability](https://img.shields.io/codeclimate/maintainability/warlof/seat-connector?style=for-the-badge)](https://codeclimate.com/github/warlof/seat-connector/maintainability)
-[![License](https://img.shields.io/github/license/warlof/seat-connector?style=for-the-badge)](https://github.com/warlof/seat-connector/blob/master/LICENSE)
+[![Latest Stable Version](https://img.shields.io/badge/SeAT-5.0.x-blueviolet?style=for-the-badge)](https://github.com/eveseat/seat)
+[![Maintainability](https://img.shields.io/codeclimate/maintainability/zenobio93/seat-connector?style=for-the-badge)](https://codeclimate.com/github/zenobio93/seat-connector/maintainability)
+[![License](https://img.shields.io/github/license/zenobio93/seat-connector?style=for-the-badge)](https://github.com/zenobio93/seat-connector/blob/master/LICENSE)
+
+Thanks to [Warlof Tutsimo](https://github.com/warlof) for writing the original plugin. Development has been taken over by zenobio93 from 23. December 2023. To find the applied changes, please consult the git history.
 
 ## Preview
 

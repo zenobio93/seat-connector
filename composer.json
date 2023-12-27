@@ -9,6 +9,10 @@
     {
       "name": "Warlof Tutsimo",
       "email": "loic.leuilliot@gmail.com"
+    },
+    {
+      "name": "Zenobio93",
+      "email": "development@hellmund.eu"
     }
   ],
   "autoload": {
@@ -17,6 +21,7 @@
     }
   },
   "require": {
+    "php": "^8.1",
     "ext-json": "*",
     "eveseat/services": "^5.0",
     "eveseat/eveapi": "^5.0",
