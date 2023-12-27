@@ -21,7 +21,8 @@
 
 namespace Warlof\Seat\Connector\Http\Resources;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
+use OpenApi\Annotations as OA;
 
 /**
  * Class UserResource.
@@ -61,7 +62,7 @@ use Illuminate\Http\Resources\Json\Resource;
  *     example="Demo User"
  * )
  */
-class UserResource extends Resource
+class UserResource extends JsonResource
 {
     public $user_id;
     public $connector_type;

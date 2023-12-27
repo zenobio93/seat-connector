@@ -24,6 +24,7 @@ namespace Warlof\Seat\Connector\Http\Controllers\Api\V2;
 use Seat\Api\Http\Controllers\Api\v2\ApiController;
 use Warlof\Seat\Connector\Http\Resources\UserResource;
 use Warlof\Seat\Connector\Models\User;
+use OpenApi\Annotations as OA;
 
 /**
  * Class UserController.
