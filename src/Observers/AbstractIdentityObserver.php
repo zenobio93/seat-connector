@@ -47,6 +47,12 @@ abstract class AbstractIdentityObserver
 
     public function notifyDrivers(SeatUser $user): void
     {
+        // make sure we have some drivers to notify
+        if (! is_array(config('seat-connector.drivers'))) {
+            // No drivers, nothing to do, bail out
+            return;
+        }
+
         // extract registered drivers from the configuration stack
         $drivers = collect(array_keys(config('seat-connector.drivers')));
 
