@@ -30,6 +30,7 @@ use Seat\Web\Events\UserRoleRemoved;
 use Seat\Web\Models\Squads\SquadMember;
 use Warlof\Seat\Connector\Commands\DriverApplyPolicies;
 use Warlof\Seat\Connector\Commands\DriverUpdateSets;
+use Warlof\Seat\Connector\Database\Seeders\ScheduleSeeder;
 use Warlof\Seat\Connector\Events\EventLogger;
 use Warlof\Seat\Connector\Listeners\LoggerListener;
 use Warlof\Seat\Connector\Listeners\UserRoleAddedListener;
@@ -65,6 +66,8 @@ class SeatConnectorServiceProvider extends AbstractSeatPlugin
      */
     public function register(): void
     {
+        $this->registerDatabaseSeeders(ScheduleSeeder::class);
+
         $this->mergeConfigFrom(__DIR__ . '/Config/package.sidebar.php', 'package.sidebar');
         $this->mergeConfigFrom(__DIR__ . '/Config/seat-connector.config.php', 'seat-connector.config');
 
