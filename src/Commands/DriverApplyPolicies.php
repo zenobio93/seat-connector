@@ -35,7 +35,8 @@ class DriverApplyPolicies extends Command
      */
     protected $signature = 'seat-connector:apply:policies
                             {--driver=* : The specific driver name for which you want apply policy}
-                            {--terminator : Revoke all Sets}';
+                            {--terminator : Revoke all Sets}
+                            {--sync : Execute without sending the job through the queue, useful for debugging}';
 
     /**
      * @var string
@@ -51,6 +52,7 @@ class DriverApplyPolicies extends Command
         $drivers_parameter = $this->option('driver');
         $drivers = collect(array_keys(config('seat-connector.drivers')));
         $terminator = $this->option('terminator') ?: false;
+        $sync = $this->option('sync') ?: false;
 
         if ($drivers->isEmpty()) {
             throw new MissingDriverException('No SeAT Connector drivers has been found.' . PHP_EOL .
@@ -80,8 +82,12 @@ class DriverApplyPolicies extends Command
                 continue;
             }
 
-            dispatch(new \Warlof\Seat\Connector\Jobs\DriverApplyPolicies($driver, $terminator))->onQueue('high');
-            $this->info(sprintf('A new Policy job has been enqueue for driver %s', $driver));
+            if(!$sync){
+                dispatch(new \Warlof\Seat\Connector\Jobs\DriverApplyPolicies($driver, $terminator))->onQueue('high');
+                $this->info(sprintf('A new Policy job has been enqueue for driver %s', $driver));
+            } else {
+                \Warlof\Seat\Connector\Jobs\DriverApplyPolicies::dispatchSync($driver, $terminator);
+            }
         }
     }
 }
