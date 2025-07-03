@@ -22,11 +22,14 @@
 return [
     'settings'           => 'Settings',
     'save'               => 'Save',
+    'close'              => 'Close',
 
     'toolbox'            => 'Toolbox',
     'access_management'  => 'Access Management',
     'user_mapping'       => 'User Mapping',
     'journal'            => 'Journal',
+
+    'edit_user_mapping'  => 'Edit User Mapping',
 
     'all_filter'         => 'All Filters',
     'public_filter'      => 'Public Filters',
@@ -55,6 +58,11 @@ return [
     'character_name'     => 'Character Name',
     'connector_id'       => 'Connector ID',
     'connector_name'     => 'Connector Name',
+    'name_override'      => 'Name Override',
+
+    'enter_custom_name'  => 'Enter a custom name',
+    'enable_name_override' => 'Enable name override',
+
 
     'identities'         => 'Identity|Identities',
 ];

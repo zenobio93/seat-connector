@@ -36,6 +36,8 @@
         </div>
       </div>
     </div>
+
+    @include('seat-connector::users.partials.edit-modal')
   @endif
 @stop
 
