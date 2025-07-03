@@ -28,6 +28,13 @@ use Seat\Web\Models\User as SeatUser;
 
 /**
  * Class User.
+ *
+ * @property string connector_type
+ * @property int connector_id
+ * @property string connector_name
+ * @property string name_override
+ * @property int user_id
+ * @property int unique_id
  */
 class User extends Model
 {
@@ -40,7 +47,7 @@ class User extends Model
      * @var array
      */
     protected $fillable = [
-        'connector_type', 'connector_id', 'connector_name', 'user_id', 'unique_id',
+        'connector_type', 'connector_id', 'connector_name', 'name_override', 'user_id', 'unique_id',
     ];
 
     /**
@@ -209,6 +216,10 @@ class User extends Model
      */
     public function buildConnectorNickname(): string
     {
+        if($this->name_override != null && strlen($this->name_override)>0) {
+            return $this->name_override;
+        }
+
         $character = $this->user->main_character;
 
         if (is_null($character->name)) {
