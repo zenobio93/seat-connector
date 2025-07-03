@@ -12,8 +12,8 @@
                     @csrf()
                     <input type="hidden" name="user_id">
                     <div class="form-group">
-                        <label>{{ trans('seat-connector::seat.name_override') }}</label>
-                        <input type="text" class="form-control mb-1" name="name_override" placeholder="{{ trans('seat-connector::seat.enter_custom_name') }}">
+                        <label for="name-override">{{ trans('seat-connector::seat.name_override') }}</label>
+                        <input type="text" class="form-control mb-1" id="name-override" name="name_override" placeholder="{{ trans('seat-connector::seat.enter_custom_name') }}">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="name_override_enable" id="name-override-enable">
                             <label class="form-check-label" for="name-override-enable">
@@ -43,7 +43,12 @@
 
             const name_override_enabled = name_override !== ""
             modal.find('.modal-body input[name="name_override_enable"]').prop( "checked", name_override_enabled)
-
+        })
+        
+        $('#name-override').on('input',function (e) {
+            const modal = $('#userModal')
+            const has_override_name = $(this).val().length > 0
+            modal.find('.modal-body input[name="name_override_enable"]').prop( "checked", has_override_name)
         })
     </script>
 @endpush
