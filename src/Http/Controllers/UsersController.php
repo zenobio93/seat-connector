@@ -21,6 +21,7 @@
 
 namespace Warlof\Seat\Connector\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Seat\Web\Http\Controllers\Controller;
 use Warlof\Seat\Connector\Exceptions\DriverException;
@@ -98,5 +99,42 @@ class UsersController extends Controller
 
         return redirect()->back()
             ->with('success', 'Identity has been successfully dropped.');
+    }
+
+    public function edit(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|integer',
+            'name_override' => 'nullable|string',
+            'name_override_enable'=>'nullable'
+        ]);
+
+        // attempt to retrieve requested identity
+        $identity = User::find($request->user_id);
+
+        if (is_null($identity)) {
+            return redirect()->back()
+                ->with('error', 'An error occurred while attempting to edit a user mapping. User not found.');
+        }
+
+        $name_override_enabled = $request->name_override_enable !== null; // checkboxes are annoying
+        $name_override = $request->name_override;
+        $name_override_valid = $name_override !== null && strlen($name_override)>0;
+
+        if($name_override_enabled && !$name_override_valid) {
+            return redirect()->back()
+                ->with('error', 'An error occurred while attempting to edit a user mapping: Invalid name override.');
+        }
+
+        if($name_override_enabled) {
+            $identity->name_override = $name_override;
+        } else {
+            $identity->name_override = null;
+        }
+
+        $identity->save();
+
+        return redirect()->back()
+            ->with('success', 'Successfully updated name override!');
     }
 }

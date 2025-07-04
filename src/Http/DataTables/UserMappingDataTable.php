@@ -38,7 +38,7 @@ class UserMappingDataTable extends DataTable
     {
         return datatables()
             ->eloquent($this->applyScopes($this->query()))
-            ->editColumn('action', fn($row) => view('seat-connector::users.partials.delete', ['row' => $row]))
+            ->editColumn('action', fn($row) => view('seat-connector::users.partials.actions-button', ['row' => $row]))
             ->toJson();
     }
 
@@ -48,7 +48,7 @@ class UserMappingDataTable extends DataTable
     public function query(): \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
     {
         return User::with('user')
-            ->select('seat_connector_users.id', 'connector_id', 'connector_name', 'user_id');
+            ->select('seat_connector_users.id', 'connector_id', 'connector_name', 'name_override', 'user_id');
     }
 
     /**
@@ -89,6 +89,10 @@ class UserMappingDataTable extends DataTable
             [
                 'data'  => 'connector_name',
                 'title' => trans('seat-connector::seat.connector_name'),
+            ],
+            [
+                'data'  => 'name_override',
+                'title' => trans('seat-connector::seat.name_override'),
             ],
         ];
     }

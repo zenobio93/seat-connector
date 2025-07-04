@@ -58,6 +58,10 @@ Route::group([
                 ->name('seat-connector.users.destroy')
                 ->uses('UsersController@destroy');
 
+            Route::post('/users/edit')
+                ->name('seat-connector.users.edit')
+                ->uses('UsersController@edit');
+
             Route::get('/access')
                 ->name('seat-connector.acl')
                 ->uses('AccessController@index');
