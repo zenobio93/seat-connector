@@ -95,7 +95,7 @@ class SeatConnectorServiceProvider extends AbstractSeatPlugin
      */
     public function getPackageRepositoryUrl(): string
     {
-        return 'https://github.com/warlof/seat-connector';
+        return 'https://github.com/zenobio93/seat-connector';
     }
 
     /**
