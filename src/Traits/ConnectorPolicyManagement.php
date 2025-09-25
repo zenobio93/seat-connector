@@ -58,18 +58,17 @@ trait ConnectorPolicyManagement
     {
         $new_nickname = $profile->buildConnectorNickname();
 
-        // identity nick is already up-to-date - we have nothing to do here
-        if ($identity->getName() === $new_nickname) {
-            return;
+        if ($identity->getName() !== $new_nickname) {
+            if ($identity->setName($new_nickname)) {
+                event(new EventLogger($profile->connector_type, 'info', 'policy',
+                    sprintf('Nickname from the user %s (%s) from group %d has been updated.',
+                        '', $identity->getName(), $profile->user->id)));
+            }
         }
 
-        if ($identity->setName($new_nickname)) {
+        if($identity->getName() !== $profile->connector_name) {
             $profile->connector_name = $identity->getName();
             $profile->save();
-
-            event(new EventLogger($profile->connector_type, 'info', 'policy',
-                sprintf('Nickname from the user %s (%s) from group %d has been updated.',
-                    '', $identity->getName(), $profile->user->id)));
         }
     }
 
