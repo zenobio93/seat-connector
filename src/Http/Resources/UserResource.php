@@ -75,10 +75,10 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'user_id'        => $this->user_id,
-            'connector_type' => $this->connector_type,
-            'connector_id'   => $this->connector_id,
-            'connector_name' => $this->connector_name,
+            'user_id'        => $this->resource->user_id,
+            'connector_type' => $this->resource->connector_type,
+            'connector_id'   => $this->resource->connector_id,
+            'connector_name' => $this->resource->connector_name,
         ];
     }
 }
