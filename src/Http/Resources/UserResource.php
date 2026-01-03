@@ -64,10 +64,6 @@ use OpenApi\Annotations as OA;
  */
 class UserResource extends JsonResource
 {
-    public $user_id;
-    public $connector_type;
-    public $connector_id;
-    public $connector_name;
     /**
      * @param  \Illuminate\Http\Request  $request
      * @return array
