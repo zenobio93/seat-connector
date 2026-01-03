@@ -33,7 +33,7 @@ class UserController extends ApiController
 {
     /**
      * @OA\Get(
-     *     path="/v2/seat-connector/users",
+     *     path="/api/v2/seat-connector/users",
      *     tags={"SeAT Connector"},
      *     summary="Get a list of users",
      *     description="Return list of users along with their mapping",
